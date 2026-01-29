@@ -1,0 +1,130 @@
+# 📚 Week 8 – Day 1: Stack (DSA)
+
+## 🔹 Topic: Stack Data Structure
+
+Today I learned about the **Stack** data structure, which follows the **LIFO (Last In First Out)** principle.
+
+---
+
+## 📌 What is a Stack?
+A stack is a linear data structure where:
+- Insertion happens from the **top**
+- Deletion happens from the **top**
+
+### stack using vector
+  
+#include<iostream>
+#include<vector>
+using namespace std;
+
+class stack{
+    vector<int> v;
+
+public:
+    void push(int val){
+        v.push_back(val);
+    }
+
+    void pop(){
+        if(!isempty()){
+            v.pop_back();
+        }
+    }
+
+    int top(){
+        if(!isempty()){
+            return v[v.size() - 1];
+        }
+        return -1;
+    }
+
+    bool isempty(){
+        return v.size() == 0;
+    }
+};
+
+int main(){
+    stack s;
+    s.push(3);
+    s.push(2);
+    s.push(9);
+    s.push(8);
+
+    while(!s.isempty()){
+        cout << s.top() << " ";
+        s.pop();
+    }
+    cout << endl;
+
+    return 0;
+}
+
+### stack using linkedlist(list(Stl)) 
+  
+#include<iostream>
+#include<list>
+using namespace std;
+
+class stack{
+   list<int> ll;
+
+public:
+    void push(int val){
+        ll.push_front(val);
+    }
+
+    void pop(){
+        if(!isempty()){
+            ll.pop_front();
+        }
+    }
+
+    int top(){
+        if(!isempty()){
+            return ll.front();
+        }
+        return -1;
+    }
+
+    bool isempty(){
+        return ll.size() == 0;
+    }
+};
+
+int main(){
+    stack s;
+    s.push(3);
+    s.push(2);
+    s.push(9);
+    s.push(85);
+
+    while(!s.isempty()){
+        cout << s.top() << " ";
+        s.pop();
+    }
+    cout << endl;
+
+    return 0;
+}
+
+
+### stack using c++ stl
+  #include<iostream>
+#include<stack>
+using namespace std;
+
+int main(){
+    stack<int> s;
+    s.push(3);
+    s.push(2);
+    s.push(9);
+    s.push(85);
+
+    while(!s.empty()){
+        cout << s.top() << " ";
+        s.pop();
+    }
+    cout << endl;
+
+return 0;
+}
