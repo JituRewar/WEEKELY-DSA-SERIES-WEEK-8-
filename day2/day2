@@ -1,0 +1,87 @@
+# 📘 Week 8 – Day 2 (DSA Weekly Series)
+
+## 🔹 Problem: Valid Parentheses (LeetCode 20)
+
+### 🧠 Problem Statement
+
+Given a string `s` containing just the characters `'('`, `')'`, `'{'`, `'}'`, `'['`, and `']'`, determine if the input string is valid.
+
+A string is valid if:
+
+* Open brackets are closed by the same type of brackets.
+* Open brackets are closed in the correct order.
+* Every closing bracket has a corresponding opening bracket.
+
+---
+
+### 💡 Approach (Using Stack)
+
+* Traverse the string character by character.
+* If the character is an **opening bracket**, push it onto the stack.
+* If it is a **closing bracket**:
+
+  * Check if the stack is empty → invalid.
+  * Compare the top of the stack with the closing bracket.
+  * If they match, pop the stack.
+  * Otherwise, return false.
+* At the end, if the stack is empty → valid parentheses.
+
+---
+
+### ⏱️ Complexity Analysis
+
+* **Time Complexity:** `O(n)`
+* **Space Complexity:** `O(n)` (stack usage)
+
+---
+
+### ✅ C++ Solution
+
+```cpp
+class Solution {
+public:
+    bool isValid(string s) {
+        stack<char> st;
+        for(int i=0;i<s.size();i++){
+            if(s[i]=='(' || s[i]=='{' || s[i] == '[') //opening character 
+            {
+                st.push(s[i]);
+            }
+            else{
+                if(st.size()==0) return false; // if closer brackets are more
+            if((st.top()=='(' && s[i]==')') || (st.top()=='{' && s[i]=='}') || (st.top()=='[' && s[i]==']')){
+                st.pop();
+                }
+                else{
+                    // no matching
+                    return false;
+                }
+            }
+        }
+        return st.size()==0;  //if opening brackets are more 
+    }
+};
+```
+
+---
+
+### 📝 Example
+
+**Input:** `"()[]{}"`
+**Output:** `true`
+
+**Input:** `"(]"`
+**Output:** `false`
+
+---
+
+### 🚀 Key Learnings
+
+* Stack is ideal for problems involving **nested structures**.
+* Always check stack underflow before accessing `top()`.
+* This problem is a classic example of **LIFO (Last In First Out)** behavior.
+
+---
+
+
+⭐ If you find this helpful, don’t forget to star the repository and follow the journey!
