@@ -1,0 +1,104 @@
+# 📅 Week 8 – Day 3
+
+## 📌 Problem: Stock Span Problem
+
+### 🔗 Problem Reference
+
+Classic **Stock Span Problem** (Stack-based problem)
+
+---
+
+## 🧠 Problem Statement
+
+The stock span problem is a financial problem where we have a series of **daily stock prices**. For each day, we need to calculate the **span of that stock’s price**.
+
+The span of the stock's price on a given day is defined as the **maximum number of consecutive days just before the given day**, for which the price of the stock on the current day is **greater than or equal to** its price on those days.
+
+---
+
+## ✨ Example
+
+**Input:**
+
+```
+Prices = [100, 80, 60, 70, 60, 75, 85]
+```
+
+**Output:**
+
+```
+Span   = [1, 1, 1, 2, 1, 4, 6]
+```
+
+---
+
+## 🛠️ Approach (Using Stack)
+
+* Use a **stack to store indices** of days
+* Maintain a **monotonic decreasing stack** (prices decrease from bottom to top)
+* For each day:
+
+  * Pop elements from stack while the current price is greater than or equal to stack top price
+  * If stack becomes empty → span = `i + 1`
+  * Else → span = `i - stack.top()`
+  * Push current index into stack
+
+---
+
+## ⏱️ Time & Space Complexity
+
+* **Time Complexity:** `O(n)`
+* **Space Complexity:** `O(n)` (stack)
+
+---
+
+## 💻 C++ Implementation
+
+```cpp
+#include<iostream>
+#include<vector>
+#include<stack>
+using namespace std;
+
+void stockSpan(vector<int>& price, vector<int>& ans) {
+    stack<int> s;
+    int n = price.size();
+
+    for(int i = 0; i < n; i++) {
+        while(!s.empty() && price[s.top()] <= price[i]) {
+            s.pop();
+        }
+
+        if(s.empty())
+            ans[i] = i + 1;
+        else
+            ans[i] = i - s.top();
+
+        s.push(i);
+    }
+}
+
+int main() {
+    vector<int> price = {100, 80, 60, 70, 60, 75, 85};
+    vector<int> ans(price.size(), 0);
+
+    stockSpan(price, ans);
+
+    for(int x : ans)
+        cout << x << " ";
+
+    return 0;
+}
+```
+
+---
+
+## 🚀 Key Takeaways
+
+* Stack is extremely useful for **previous greater/smaller element problems**
+* Stock Span is a **must-know interview problem**
+* This problem reinforces the concept of **monotonic stack**
+
+---
+
+📌 *Part of my **Weekly DSA Series** – consistently learning and improving problem-solving skills.*
