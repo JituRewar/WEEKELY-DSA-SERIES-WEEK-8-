@@ -1,0 +1,81 @@
+# Week 8 - Day 4  
+## Next Greater Element (Stack)
+
+### 📌 Topics Covered
+- Next Greater Element (NGE)
+- Stack-based problem solving
+- Monotonic Stack concept
+
+### 🧠 Problem Overview
+For each element in the array, find the **next greater element on the right side**.
+If no such element exists, return `-1`.
+
+### 🚀 Approach
+- Use a **stack** to keep elements whose NGE is not found yet.
+- Traverse the array from right to left.
+- Pop elements smaller than or equal to the current element.
+- The top of the stack (if exists) is the next greater element.
+
+### 🧩 LeetCode Problem
+- **496. Next Greater Element I**
+- Link: https://leetcode.com/problems/next-greater-element-i/
+
+### ⏱ Time & Space Complexity
+- **Time:** O(n)
+- **Space:** O(n)
+
+nextgreater.cpp
+  #include<iostream>
+#include<vector>
+#include<stack>
+using namespace std;
+void nextGreator(vector<int>& price,vector<int>& ans,stack<int>& s){
+    for (int i = price.size()-1;i>=0;i--)
+    {
+         while ( s.size()>0 && s.top() <= price[i])
+        {
+            s.pop();
+        }
+        if(!s.empty() && s.top() > price[i]){
+            ans[i] = s.top();
+        }
+        if(s.empty()) ans[i] = -1; 
+             s.push(price[i]);
+    }
+}
+int main(){
+    vector<int> price = {1,4,5,42,4,5,21,3};
+    vector<int> ans(price.size(),0);
+    stack<int> s;
+    nextGreator(price,ans,s);
+    for(int x : ans){
+        cout<<x<<" ";
+    }
+
+}
+
+
+496.cpp
+  class Solution {
+public:
+    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+        vector<int> ans(nums1.size(),0);
+        stack<int> s;
+       unordered_map<int,int> m;   // key=num2[i] val = nextgreator element of num2[i]
+       for(int i = nums2.size()-1;i>=0;i--){
+            while(s.size() > 0 && s.top() <= nums2[i]) s.pop();
+
+            if(!s.empty() && s.top() > nums2[i]){
+                m[nums2[i]] = s.top();
+            }
+            if(s.empty()) m[nums2[i]] = -1;
+            s.push(nums2[i]);
+       }
+
+       for(int i=0;i<nums1.size();i++){
+            ans[i] = m[nums1[i]]; 
+       }
+
+    return ans;
+    }
+};
