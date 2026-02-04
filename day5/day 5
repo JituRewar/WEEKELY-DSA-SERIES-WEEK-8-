@@ -1,0 +1,117 @@
+# 📅 Weekly DSA Series
+
+## Week 8 – Day 5
+
+### Topic: Previous Smaller Element using Stack
+
+---
+
+## 🧠 Problem Statement
+
+Given an array of integers, for each element find the **previous smaller element** (the nearest element to the left which is smaller than the current element).
+
+* If no such element exists, output **-1** for that position.
+
+---
+
+## 💡 Approach (Using Stack)
+
+We use a **monotonic stack** to efficiently solve this problem in **O(n)** time.
+
+### Steps:
+
+1. Traverse the array from left to right.
+2. For each element:
+
+   * Pop elements from the stack while they are **greater than or equal** to the current element.
+   * If the stack becomes empty → previous smaller element is `-1`.
+   * Else → stack top is the previous smaller element.
+3. Push the current element onto the stack.
+
+---
+
+## ⏱ Time & Space Complexity
+
+* **Time Complexity:** O(n)
+* **Space Complexity:** O(n)
+
+---
+
+## 🧪 Example
+
+**Input:**
+
+```
+[4, 5, 2, 10, 8]
+```
+
+**Output:**
+
+```
+[-1, 4, -1, 2, 2]
+```
+
+---
+
+## 💻 C++ Implementation
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <stack>
+using namespace std;
+
+vector<int> previousSmaller(vector<int>& arr) {
+    stack<int> s;
+    vector<int> ans;
+
+    for (int i = 0; i < arr.size(); i++) {
+        while (!s.empty() && s.top() >= arr[i]) {
+            s.pop();
+        }
+        if (s.empty()) {
+            ans.push_back(-1);
+        } else {
+            ans.push_back(s.top());
+        }
+        s.push(arr[i]);
+    }
+    return ans;
+}
+
+int main() {
+    vector<int> arr = {4, 5, 2, 10, 8};
+    vector<int> result = previousSmaller(arr);
+
+    for (int x : result) {
+        cout << x << " ";
+    }
+    return 0;
+}
+```
+
+---
+
+## 📁 Folder Structure
+
+```
+Week-08/
+└── Day-04-Previous-Smaller-Element/
+    ├── README.md
+    └── previous_smaller.cpp
+```
+
+---
+
+## 🚀 Key Takeaways
+
+* Stack helps reduce brute-force solutions to linear time.
+* This pattern is widely used in problems like:
+
+  * Next Greater Element
+  * Stock Span
+  * Largest Rectangle in Histogram
+
+---
+
+✨ Part of my **Weekly DSA Series** — consistently improving problem-solving skills using C++.
