@@ -1,0 +1,113 @@
+# 📅 Weekly DSA Series
+
+## Week 8 – Day 6
+
+### Topic: Min Stack (LeetCode 155)
+
+---
+
+## 🧠 Problem Statement
+
+Design a stack that supports the following operations in **constant time O(1)**:
+
+* `push(val)` – Push element onto the stack
+* `pop()` – Remove the top element
+* `top()` – Get the top element
+* `getMin()` – Retrieve the minimum element in the stack
+
+This is the classic **Min Stack** problem from **LeetCode 155**.
+
+---
+
+## 💡 Approach (Using Two Stacks)
+
+We maintain:
+
+1. **Main Stack** → stores all values
+2. **Min Stack** → stores the minimum value at each state
+
+### Logic:
+
+* While pushing:
+
+  * Push value into main stack
+  * Push `min(val, minStack.top())` into min stack
+* While popping:
+
+  * Pop from both stacks
+* `top()` → return main stack top
+* `getMin()` → return min stack top
+
+This guarantees **O(1)** time for all operations.
+
+---
+
+## ⏱ Time & Space Complexity
+
+* **Time Complexity:** O(1) per operation
+* **Space Complexity:** O(n)
+
+---
+
+## 🧪 Example
+
+```
+Input:
+push(-2)
+push(0)
+push(-3)
+getMin() → -3
+pop()
+top() → 0
+getMin() → -2
+```
+
+---
+
+## 💻 C++ Implementation
+
+```cpp
+#include <stack>
+using namespace std;
+class MinStack {
+public:
+stack<pair<int,int>> s;
+    MinStack() {
+        
+    }
+    
+    void push(int val) {
+        if(s.empty()){
+            s.push({val,val});
+        }
+        else{
+            int minval = min(val,s.top().second);
+            s.push({val,minval});
+        }
+    }
+    
+    void pop() {
+        s.pop();
+    }
+    
+    int top() {
+        return s.top().first;
+    }    
+    int getMin() {
+        return s.top().second;
+    }
+};
+
+## 📁 Folder Structure
+
+
+
+## 🚀 Key Takeaways
+
+* Auxiliary stack helps track minimum efficiently
+* Common interview favorite stack problem
+* Builds foundation for advanced stack problems
+
+---
+
+✨ Part of my **Weekly DSA Series** — solving LeetCode problems with clean logic and optimal complexity.
